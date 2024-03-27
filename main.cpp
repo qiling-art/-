@@ -6,5 +6,5 @@ struct book
 }
 int main()
 {
-	
+	int a; 
  } 
