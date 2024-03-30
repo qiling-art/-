@@ -1,3 +1,6 @@
+int BookType[6] = { 30, 30, 30, 30, 30, 30};//各类书可以借阅的时间
+int UserType[3] = { 20, 25, 30};//不同读者可以借阅的图书数量
+
 typedef struct Book {
     char* name;//书名
     char* writer;//作者名
