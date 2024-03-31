@@ -41,6 +41,11 @@ typedef struct Administrator {
     struct Administrator* next;
 }Admin;
 
+Book* broot;
+Record* reroot;
+User* uroot;
+Admin* aroot;
+
 int Borrow(char* uname, char* account, char* bname, User* uroot, Book* broot, long long date) //针对读者进行借阅操作 返回值代表借阅是否成功
 {
     User* p = uroot;
@@ -68,11 +73,27 @@ int Borrow(char* uname, char* account, char* bname, User* uroot, Book* broot, lo
     record->book = book;
     record->date = date;
     record->next = NULL;
+    if (p->record == NULL) {
+        p->record = record;
+        return 1;
+    }
     Record* t = p->record;
-    while (t != NULL) t = t->next;
-    t = record;
+    while (t != NULL) {
+        if (t->next == NULL) break;
+        t = t->next;
+    }
+    t->next = record;
     p->num++;
     //为读者增加借阅记录
+    if (reroot == NULL) {
+        reroot = record;
+    }
+    Record* r = reroot;
+    while (r) {
+        if (r->next = NULL) break;
+        r = r->next;
+    }
+    r->next = record;//在总体的借阅记录上增加一次借阅记录
     return 1;
 }
 
@@ -84,6 +105,10 @@ int Return(char* uname, char* account, char* bname, long long isbn, User* uroot,
         p = p->next;
         if (p == NULL) return 0;
     }//查找读者
+    if (p->record == NULL) return 0;
+    if (p->record->book.Isbn = isbn) {
+        p->record->next = p->record->next->next;
+    }
     Record* q = p->record;
     while (q && isbn != q->book.Isbn) {
         q = q->next;
@@ -104,7 +129,17 @@ int Return(char* uname, char* account, char* bname, long long isbn, User* uroot,
     return 1;
 }
 
-int U_Maintain(char* name, char* account)
+int U_Maintain(char* name, long long account, long long password, User* uroot) 
+//维护读者的密码
+{
+    User* p = uroot;
+    while (p && p->account != account) {
+        p = p->next;
+        if (p = NULL) return 0;
+    }
+    p->password = password;
+    return 1;
+}
 
 int main() {
 

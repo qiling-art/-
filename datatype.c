@@ -36,3 +36,8 @@ typedef struct Administrator {
     long long account;//管理员账号
     struct Administrator* next;
 }Admin;
+
+Book* broot;
+Record* reroot;
+User* uroot;
+Admin* aroot;
