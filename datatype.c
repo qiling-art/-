@@ -11,12 +11,20 @@ typedef struct Book {
     struct Book* next;
 }Book;
 
+typedef struct Record {
+    Book book;//借阅的书的所有信息
+    long long date;//借阅的时间
+    Record* next;
+}Record;
+
 typedef struct User {
     char* name;//读者名字
     int type;//读者类型 0 本科生 1 研究生 2 博士生
     char f_letter;//读者名字拼音首字母
     long long password;//读者的密码
     char* account;//读者的账号
+    int num = 0;//已借阅的书的数量
+    Record* record;用链表来存储借阅了哪些书
     struct User* next;
 }User;
 
