@@ -48,6 +48,7 @@ Admin* aroot;
 
 int Borrow(char* uname, char* account, char* bname, User* uroot, Book* broot, long long date) //针对读者进行借阅操作 返回值代表借阅是否成功
 {
+    if (uroot == NULL || broot == NULL) return 0;
     User* p = uroot;
     Book* q = broot;
     while (p && (strcmp(p->name, uname) != 0 || strcmp(account, p->account) != 0)) {
@@ -100,6 +101,7 @@ int Borrow(char* uname, char* account, char* bname, User* uroot, Book* broot, lo
 int Return(char* uname, char* account, char* bname, long long isbn, User* uroot, Book* broot) 
 //进行读者还书操作，返回值为操作是否成功
 {
+    if (uroot == NULL || broot == NULL) return 0;
     User* p = uroot;
     while (p && (strcmp(uname, p->name) != 0 || strcmp(account, p->account) != 0)) {
         p = p->next;
@@ -132,12 +134,61 @@ int Return(char* uname, char* account, char* bname, long long isbn, User* uroot,
 int U_Maintain(char* name, long long account, long long password, User* uroot) 
 //维护读者的密码
 {
+    if (uroot == NULL) return 0;
     User* p = uroot;
     while (p && p->account != account) {
         p = p->next;
         if (p = NULL) return 0;
     }
     p->password = password;
+    return 1;
+}
+
+void Print_Record(char* name, long long account, User* uroot) 
+//输出用户的所有借阅书籍的名字
+{
+    if (uroot == NULL) return;
+     User* p = uroot;
+     while (p && p->account != account) {
+        p = p->next;
+        if (p == NULL) return;
+     }
+     if (p->record == NULL) return;
+     Record* q = p->record;
+     while (q) {
+        printf("%s\n", q->book.name);
+        q = q->next;
+     }
+}
+
+int Search_Record(char* uname, long long account, char* bname, User* uroot) 
+//具体查询用户是否借阅过某本书
+{
+    if (uroot == NULL) return 0;
+    User* p = uroot;
+    while (p && p->account != account) {
+        p = p->next;
+        if (p == NULL) return 0;
+    }
+    if (p->record == NULL) return 0;
+    Record* q = p->record;
+    while (q && strcmp(q->book.name, bname) != 0) {
+        q = q->next;
+        if (q == NULL) return 0;
+    }
+    return 1;
+}
+
+int Count(char* uname, long long account, User* uroot) 
+//统计并输出用户借阅的书籍总数
+{
+    if (uroot == NULL) return 0;
+    User* p = uroot;
+    while (p && p->account != account) {
+        p = p->next;
+        if (p == NULL) return 0;
+    }
+    printf("该用户一共借阅了%d本书\n", p->num);
     return 1;
 }
 
