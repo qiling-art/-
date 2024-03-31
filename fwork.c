@@ -27,7 +27,7 @@ typedef struct User {
     int type;//读者类型 0 本科生 1 研究生 2 博士生
     char f_letter;//读者名字拼音首字母
     long long password;//读者的密码
-    char* account;//读者的账号
+    long long account;//读者的账号
     int num;//已借阅的书的数量
     Record* record;//用链表来存储借阅了哪些书
     struct User* next;
@@ -37,7 +37,7 @@ typedef struct Administrator {
     char* name;//管理员名字
     char f_letter;//管理员名字拼音首字母
     long long password;//管理员密码
-    char* account;//管理员账号
+    long long account;//管理员账号
     struct Administrator* next;
 }Admin;
 
@@ -103,6 +103,8 @@ int Return(char* uname, char* account, char* bname, long long isbn, User* uroot,
     p->num--;//更新书籍以及读者信息
     return 1;
 }
+
+int U_Maintain(char* name, char* account)
 
 int main() {
 
