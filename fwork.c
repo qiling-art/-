@@ -46,12 +46,12 @@ Record* reroot;
 User* uroot;
 Admin* aroot;
 
-int Borrow(char* uname, char* account, char* bname, User* uroot, Book* broot, long long date) //针对读者进行借阅操作 返回值代表借阅是否成功
+int Borrow(char* uname, long long account, char* bname, User* uroot, Book* broot, long long date) //针对读者进行借阅操作 返回值代表借阅是否成功
 {
     if (uroot == NULL || broot == NULL) return 0;
     User* p = uroot;
     Book* q = broot;
-    while (p && (strcmp(p->name, uname) != 0 || strcmp(account, p->account) != 0)) {
+    while (p && account != p->account)) {
         p = p->next;
         if (p == NULL) return 0;
     }
@@ -99,17 +99,17 @@ int Borrow(char* uname, char* account, char* bname, User* uroot, Book* broot, lo
     return 1;
 }
 
-int Return(char* uname, char* account, char* bname, long long isbn, User* uroot, Book* broot) 
+int Return(char* uname, long long account, char* bname, long long isbn, User* uroot, Book* broot) 
 //进行读者还书操作，返回值为操作是否成功
 {
     if (uroot == NULL || broot == NULL) return 0;
     User* p = uroot;
-    while (p && (strcmp(uname, p->name) != 0 || strcmp(account, p->account) != 0)) {
+    while (p && account != p->account)) {
         p = p->next;
         if (p == NULL) return 0;
     }//查找读者
     if (p->record == NULL) return 0;
-    if (p->record->book.Isbn = isbn) {
+    if (p->record->book.Isbn == isbn) {
         p->record->next = p->record->next->next;
     }
     Record* q = p->record;
@@ -237,7 +237,7 @@ void Sort_Record(char* uname, long long account, User* uroot)
         q = q->next;
         n++;
     }
-    return sort(p->record, n);
+    p->record = sort(p->record, n);
 }
 
 //以上是读者的功能
