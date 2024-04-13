@@ -246,7 +246,8 @@ int Search_All_Record(Book k)//某本书的借阅记录
 	Record* p = reroot;
 	int num = 0;
 	while (p) {
-		if(strcmp(k.name,p->book.name)num++;
+		if(strcmp(k.name,p->book.name)
+        num++;
 			p=p->next;
 	}
 	return num;
@@ -274,7 +275,12 @@ Record* All_sort(Record* head)//对所有记录进行排序
 	}
 	return sort(reroot, num);
 }
-
+int A_Maintain(long long account, long long password, Admin *aroot)
+//维护管理员的密码
+{
+    aroot->password = password;
+    return 1;
+ }
 
 int main() {
 
