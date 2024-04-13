@@ -10,7 +10,7 @@ typedef struct Book {
     char* writer;//作者名
     char f_letter;//拼音首字母
     int type;//书的种类，0 科普类 1 教育类 2 小说类 3 传记类 4 历史类 5 诗歌类
-    long long Isbn;//书的ISBN码
+    long long Isbn;//书的ISBN码s
     long long p_date;//出版日期
     int flag;//判断这本书有没有被借出
     struct Book* next;
@@ -241,8 +241,46 @@ void Sort_Record(char* uname, long long account, User* uroot)
 }
 
 //以上是读者的功能
+int Search_All_Record(Book k)//某本书的借阅记录
+{
+	Record* p = reroot;
+	int num = 0;
+	while (p) {
+		if(strcmp(k.name,p->book.name)
+        num++;
+			p=p->next;
+	}
+	return num;
+}
+int Search_Type_Record(int type)//某类书的借阅记录
+{
+	Record *p=reroot;
+	int num=0;
+	while (p)
+	{
+		if (type == p->book.type)num++;
+		p = p->next;
+	}
+	return num;
+}
+Record* All_sort(Record* head)//对所有记录进行排序
+{
 
-
+	Record* p = reroot;
+	int num = 0;
+	while (p)
+	{
+		num++;
+		p = p->next;
+	}
+	return sort(reroot, num);
+}
+int A_Maintain(long long account, long long password, Admin *aroot)
+//维护管理员的密码
+{
+    aroot->password = password;
+    return 1;
+ }
 
 int main() {
 
