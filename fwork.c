@@ -237,7 +237,7 @@ void Sort_Record(char* uname, long long account, User* uroot)
         q = q->next;
         n++;
     }
-    return sort(p->record, n);
+    p->record = sort(p->record, n);
 }
 
 //以上是读者的功能
