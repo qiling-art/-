@@ -132,7 +132,7 @@ int Return(char* uname, long long account, char* bname, long long isbn, User* ur
     return 1;
 }
 
-int U_Maintain(char* name, long long account, long long password, User* uroot) 
+int U_Maintain(long long account, long long password, User* uroot) 
 //维护读者的密码
 {
     if (uroot == NULL) return 0;
