@@ -281,7 +281,10 @@ int A_Maintain(long long account, long long password, Admin *aroot)
     aroot->password = password;
     return 1;
  }
-
+int Reset_Password(long long account)
+{
+	return U_Maintain(acount, 123456, uroot)==1?1:0;
+}
 int main() {
 
 }
