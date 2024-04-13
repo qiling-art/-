@@ -88,6 +88,7 @@ int Borrow(char* uname, char* account, char* bname, User* uroot, Book* broot, lo
     //为读者增加借阅记录
     if (reroot == NULL) {
         reroot = record;
+        return 1;
     }
     Record* r = reroot;
     while (r) {
@@ -191,6 +192,57 @@ int Count(char* uname, long long account, User* uroot)
     printf("该用户一共借阅了%d本书\n", p->num);
     return 1;
 }
+
+Record* sort(Record* head, int n) 
+//使用归并排序
+{
+    if (n <= 1) return;
+    int l = n / 2, r = n - l;
+    Record *p1 = head, *p2;
+    for (int i = 1; i < l; i++) {
+        p1 = p1->next;
+    }
+    p2 = p1->next;
+    p1->next = NULL;
+    p1 = sort(p1, l);
+    p2 = sort(p2, r);
+    Record ret, *p;
+    ret.next = NULL;
+    p = &ret;
+    while (p1 || p2) {
+        if (p2 == NULL || p1->book.f_letter <= p2->book.f_letter) {
+            p->next = p1;
+            p1 = p1->next;
+            p = p->next;
+        }
+        else {
+            p->next = p2;
+            p2 = p2->next;
+            p = p->next;
+        }
+    }
+    return ret.next;
+} 
+
+void Sort_Record(char* uname, long long account, User* uroot) 
+//对读者的借阅记录进行排序
+{
+    User* p = uroot;
+    while (p && p->account != account) {
+        p = p->next;
+    }
+    Record* q = p->record;
+    int n = 0;
+    while (q) {
+        q = q->next;
+        n++;
+    }
+    return sort(p->record, n);
+}
+
+//以上是读者的功能
+
+
 
 int main() {
 
