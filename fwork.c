@@ -285,6 +285,35 @@ int Reset_Password(long long account)
 {
 	return U_Maintain(acount, 123456, uroot)==1?1:0;
 }
+void File_Cope(char *fileRead,char *fileWrite)//文件备份函数
+{
+	if (copyFile(fileRead, fileWrite)) {
+		printf("恭喜你，文件备份成功！\n");
+	}
+	else {
+		printf("文件备份失败！\n");
+	}
+	
+}
+/*备份函数 1: 复制成功；2: 复制失败*/
+int copyFile(char *fileRead, char *fileWrite) {
+	FILE *fpRead; 
+	FILE *fpWrite;  
+	int bufferLen = 1024 * 4; 
+	char *buffer = (char*)malloc(bufferLen);  // 开辟缓存
+	int readCount;
+	if ((fpRead = fopen(fileRead, "rt")) == NULL || (fpWrite = fopen(fileWrite, "wt")) == NULL) {
+		printf("Cannot open file!\n");
+	}
+	// 不断从fileRead读取内容，放在缓冲区，再将缓冲区的内容写入fileWrite
+	while ((readCount = fread(buffer, 1, bufferLen, fpRead)) > 0) {
+		fwrite(buffer, readCount, 1, fpWrite);
+	}
+	free(buffer);
+	fclose(fpRead);
+	fclose(fpWrite);
+	return 1;
+}
 int main() {
 
 }
