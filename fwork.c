@@ -240,6 +240,47 @@ void Sort_Record(char* uname, long long account, User* uroot)
     p->record = sort(p->record, n);
 }
 
+void Writer_Search(Book* broot) {
+    char name[100];
+    scanf("%s", name);
+    Book* p = broot;
+    while (p) {
+        if (strstr(p->writer, name) != NULL) {
+            printf("%s:%s\n", p->name, p->writer);
+        }
+        p = p->next;
+    }
+}
+
+void Book_Search(Book* broot) {
+    char name[100];
+    scanf("%s", name);
+    Book* p = broot;
+    while (p) {
+        if (strstr(p->name, name) != NULL) {
+            printf("%s:%s\n", p->name, p->writer);
+        }
+        p = p->next;
+    }
+}
+
+void Elastic_Search(Book* broot) //模糊查询
+{
+    int flag;
+    printf("查询书籍请按1，查询作者请按2:");
+    scanf("%d", &flag);
+    switch(flag) {
+        case 1:
+            printf("请输入作者的姓名或其中的一部分：");
+            Writer_Search(broot);
+            break;
+        case 2:
+            printf("请输入书的名字或其中的一部分：");
+            Book_Search(broot);
+            break;
+    }
+}
+
 //以上是读者的功能
 int Search_All_Record(Book k)//某本书的借阅记录
 {
