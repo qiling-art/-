@@ -61,40 +61,40 @@ struct Book* jcbookname()//书名简单查询
         if (strcmp(pre->name, bookname) == 0)
         {
             printf("书名：%s ", pre->name);
-            printf("作者：%s ", pre->writer);
+            printf("\t作者：%s ", pre->writer);
             if (pre->type == 0)
             {
-                printf("分类：科普类 ");
+                printf("\t分类：科普类 ");
             }
             else if (pre->type == 1)
             {
-                printf("分类：教育类 ");
+                printf("\t分类：教育类 ");
             }
             else if (pre->type == 2)
             {
-                printf("分类：小说类 ");
+                printf("\t分类：小说类 ");
             }
             else if (pre->type == 3)
             {
-                printf("分类：传记类 ");
+                printf("\t分类：传记类 ");
             }
             else if (pre->type == 4)
             {
-                printf("分类：历史类 ");
+                printf("\t分类：历史类 ");
             }
             else if (pre->type == 5)
             {
-                printf("分类：诗歌类 ");
+                printf("\t分类：诗歌类 ");
             }
-            printf("ISBN码为：%lld ", pre->Isbn);
-            printf("出版时间：%lld ", pre->p_date);
+            printf("\tISBN码为：%lld ", pre->Isbn);
+            printf("\t出版时间：%lld ", pre->p_date);
             if (pre->flag == 0)
             {
-                printf("状态：在库\n");
+                printf("\t状态：在库\n");
             }
             else if (pre->flag == 1)
             {
-                printf("状态：已借出\n");
+                printf("\t状态：已借出\n");
 
             }
             b++;
@@ -104,7 +104,7 @@ struct Book* jcbookname()//书名简单查询
     }
     if (b == 0)
     {
-        printf("查无此书，请重新输入");
+        printf("\t查无此书，请重新输入");
     }
     fclose(fp);
     return head;
@@ -127,6 +127,7 @@ struct Book* jcwriter()//作者简单查询
     struct Book* book;
     struct Book* p;
     p = book = head;
+    int b = 0;
     while (!feof(fp))
     {
 
@@ -150,40 +151,40 @@ struct Book* jcwriter()//作者简单查询
         if (strcmp(pre->writer, writername) == 0)
         {
             printf("书名：%s ", pre->name);
-            printf("作者：%s ", pre->writer);
+            printf("\t作者：%s ", pre->writer);
             if (pre->type == 0)
             {
-                printf("分类：科普类 ");
+                printf("\t分类：科普类 ");
             }
             else if (pre->type == 1)
             {
-                printf("分类：教育类 ");
+                printf("\t分类：教育类 ");
             }
             else if (pre->type == 2)
             {
-                printf("分类：小说类 ");
+                printf("\t分类：小说类 ");
             }
             else if (pre->type == 3)
             {
-                printf("分类：传记类 ");
+                printf("\t分类：传记类 ");
             }
             else if (pre->type == 4)
             {
-                printf("分类：历史类 ");
+                printf("\t分类：历史类 ");
             }
             else if (pre->type == 5)
             {
-                printf("分类：诗歌类 ");
+                printf("\t分类：诗歌类 ");
             }
-            printf("ISBN码为：%lld ", pre->Isbn);
-            printf("出版时间：%lld ", pre->p_date);
+            printf("\tISBN码为：%lld ", pre->Isbn);
+            printf("\t出版时间：%lld ", pre->p_date);
             if (pre->flag == 0)
             {
-                printf("状态：在库\n");
+                printf("\t状态：在库\n");
             }
             else if (pre->flag == 1)
             {
-                printf("状态：已借出\n");
+                printf("\t状态：已借出\n");
 
             }
             b++;
@@ -277,40 +278,40 @@ struct Book* jctype()//类别简单查询
         if (pre->type == a)
         {
             printf("书名：%s ", pre->name);
-            printf("作者：%s ", pre->writer);
+            printf("\t作者：%s ", pre->writer);
             if (pre->type == 0)
             {
-                printf("分类：科普类 ");
+                printf("\t分类：科普类 ");
             }
             else if (pre->type == 1)
             {
-                printf("分类：教育类 ");
+                printf("\t分类：教育类 ");
             }
             else if (pre->type == 2)
             {
-                printf("分类：小说类 ");
+                printf("\t分类：小说类 ");
             }
             else if (pre->type == 3)
             {
-                printf("分类：传记类 ");
+                printf("\t分类：传记类 ");
             }
             else if (pre->type == 4)
             {
-                printf("分类：历史类 ");
+                printf("\t分类：历史类 ");
             }
             else if (pre->type == 5)
             {
-                printf("分类：诗歌类 ");
+                printf("\t分类：诗歌类 ");
             }
-            printf("ISBN码为：%lld ", pre->Isbn);
-            printf("出版时间：%lld ", pre->p_date);
+            printf("\tISBN码为：%lld ", pre->Isbn);
+            printf("\t出版时间：%lld ", pre->p_date);
             if (pre->flag == 0)
             {
-                printf("状态：在库\n");
+                printf("\t状态：在库\n");
             }
             else if (pre->flag == 1)
             {
-                printf("状态：已借出\n");
+                printf("\t状态：已借出\n");
 
             }
             b++;
@@ -370,40 +371,40 @@ struct Book* jcisbn()//isbn简单查询
         if (pre->Isbn == isbn)
         {
             printf("书名：%s ", pre->name);
-            printf("作者：%s ", pre->writer);
+            printf("\t作者：%s ", pre->writer);
             if (pre->type == 0)
             {
-                printf("分类：科普类 ");
+                printf("\t分类：科普类 ");
             }
             else if (pre->type == 1)
             {
-                printf("分类：教育类 ");
+                printf("\t分类：教育类 ");
             }
             else if (pre->type == 2)
             {
-                printf("分类：小说类 ");
+                printf("\t分类：小说类 ");
             }
             else if (pre->type == 3)
             {
-                printf("分类：传记类 ");
+                printf("\t分类：传记类 ");
             }
             else if (pre->type == 4)
             {
-                printf("分类：历史类 ");
+                printf("\t分类：历史类 ");
             }
             else if (pre->type == 5)
             {
-                printf("分类：诗歌类 ");
+                printf("\t分类：诗歌类 ");
             }
-            printf("ISBN码为：%lld ", pre->Isbn);
-            printf("出版时间：%lld ", pre->p_date);
+            printf("\tISBN码为：%lld ", pre->Isbn);
+            printf("\t出版时间：%lld ", pre->p_date);
             if (pre->flag == 0)
             {
-                printf("状态：在库\n");
+                printf("\t状态：在库\n");
             }
             else if (pre->flag == 1)
             {
-                printf("状态：已借出\n");
+                printf("\t状态：已借出\n");
 
             }
             b++;
@@ -462,40 +463,40 @@ struct Book* jcdate()//出版日期简单查询
         if (pre->p_date == date)
         {
             printf("书名：%s ", pre->name);
-            printf("作者：%s ", pre->writer);
+            printf("\t作者：%s ", pre->writer);
             if (pre->type == 0)
             {
-                printf("分类：科普类 ");
+                printf("\t分类：科普类 ");
             }
             else if (pre->type == 1)
             {
-                printf("分类：教育类 ");
+                printf("\t分类：教育类 ");
             }
             else if (pre->type == 2)
             {
-                printf("分类：小说类 ");
+                printf("\t分类：小说类 ");
             }
             else if (pre->type == 3)
             {
-                printf("分类：传记类 ");
+                printf("\t分类：传记类 ");
             }
             else if (pre->type == 4)
             {
-                printf("分类：历史类 ");
+                printf("\t分类：历史类 ");
             }
             else if (pre->type == 5)
             {
-                printf("分类：诗歌类 ");
+                printf("\t分类：诗歌类 ");
             }
-            printf("ISBN码为：%lld ", pre->Isbn);
-            printf("出版时间：%lld ", pre->p_date);
+            printf("\tISBN码为：%lld ", pre->Isbn);
+            printf("\t出版时间：%lld ", pre->p_date);
             if (pre->flag == 0)
             {
-                printf("状态：在库\n");
+                printf("\t状态：在库\n");
             }
             else if (pre->flag == 1)
             {
-                printf("状态：已借出\n");
+                printf("\t状态：已借出\n");
 
             }
             b++;
