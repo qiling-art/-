@@ -1,5 +1,3 @@
 ﻿  somefunction.c
-C:\Users\33824\OneDrive\桌面\library-system\test\somefunction\somefunction.c(198,17): warning C4033: “sort”必须返回值
-C:\Users\33824\OneDrive\桌面\library-system\test\somefunction\somefunction.c(340,25): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-C:\Users\33824\OneDrive\桌面\library-system\test\somefunction\somefunction.c(224): warning C4715: “sort”: 不是所有的控件路径都返回值
+C:\Users\33824\OneDrive\桌面\library-system\test\somefunction\somefunction.c(344,25): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
   somefunction.vcxproj -> C:\Users\33824\OneDrive\桌面\library-system\test\somefunction\x64\Debug\somefunction.exe

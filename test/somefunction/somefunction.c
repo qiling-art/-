@@ -74,14 +74,13 @@ int Borrow(char uname[], long long account, char bname[], User* u_root, Book* b_
     record->next = NULL;
     if (p->record == NULL) {
         p->record = record;
-        
     }
     else {
         Record* t = p->record;
-        while (t) {
+        while (t->next) {
             t = t->next;
         }
-        t = record;
+        t->next = record;
     }
     p->num++;
     //为读者增加借阅记录
@@ -95,7 +94,6 @@ int Borrow(char uname[], long long account, char bname[], User* u_root, Book* b_
         }
         r = record;//在总体的借阅记录上增加一次借阅记录
     }
-    printf("a\n");
     return 1;
 }
 
@@ -106,17 +104,19 @@ int Return(char uname[], long long account, char bname[], long long isbn, User* 
     User* p = u_root;
     while (p && account != p->account) {
         p = p->next;
-        if (p == NULL) return 0;
     }//查找读者
+    if (p == NULL) return 0;
     if (p->record == NULL) return 0;
     if (p->record->book.Isbn == isbn) {
-        p->record->next = p->record->next->next;
+        p->record = p->record->next;
+        p->num--;
+        return 1;
     }
     Record* q = p->record;
     while (q && isbn != q->book.Isbn) {
         q = q->next;
-        if (q == NULL) return 0;
     }
+    if (q == NULL) return 0;
     Record* pre = p->record;
     while (pre && pre->next != q) {
         pre = pre->next;
@@ -150,13 +150,13 @@ void Print_Record(char name[], long long account, User* u_root)
 {
     if (u_root == NULL) return;
     User* p = u_root;
-    while (p && p->account != account) {
+    while (p!=NULL && p->account != account) {
         p = p->next;
     }
     if (p->record == NULL) return;
     Record* q = p->record;
     while (q) {
-        printf("%s\n", q->book.name);
+        printf("%s %lld\n", q->book.name, q->book.Isbn);
         q = q->next;
     }
 }
@@ -192,52 +192,56 @@ int Count(char uname[], long long account, User* u_root)
     return 1;
 }
 
-Record* sort(Record* head, int n)
-//使用归并排序
+Record* merge(Record* left, Record* right) //归并
 {
-    if (n <= 1) return;
-    int l = n / 2, r = n - l;
-    Record* p1 = head, * p2;
-    for (int i = 1; i < l; i++) {
-        p1 = p1->next;
-    }
-    p2 = p1->next;
-    p1->next = NULL;
-    p1 = sort(p1, l);
-    p2 = sort(p2, r);
-    Record ret, * p;
-    ret.next = NULL;
-    p = &ret;
-    while (p1 || p2) {
-        if (p2 == NULL || p1->book.f_letter <= p2->book.f_letter) {
-            p->next = p1;
-            p1 = p1->next;
-            p = p->next;
+    Record dummy;
+    Record* tail = &dummy;
+    while (left && right) {
+        if (left->book.f_letter <= right->book.f_letter) {
+            tail->next = left;
+            left = left->next;
         }
         else {
-            p->next = p2;
-            p2 = p2->next;
-            p = p->next;
+            tail->next = right;
+            right = right->next;
         }
+        tail = tail->next;
     }
-    return ret.next;
+    tail->next = left ? left : right;
+    return dummy.next;
 }
 
-void Sort_Record(char uname[], long long account, User* u_root)
-//对读者的借阅记录进行排序
+Record* sort(Record* head, int n) {
+    if (n <= 1) return head;
+    int mid = n / 2;
+    Record* midNode = head;
+    for (int i = 0; i < mid - 1; ++i) {
+        midNode = midNode->next;
+    }
+    Record* rightHead = midNode->next;
+    midNode->next = NULL;
+    Record* left = sort(head, mid);
+    Record* right = sort(rightHead, n - mid);
+    return merge(left, right);
+}
+
+void Sort_Record(char uname[], long long account, User* u_root) //对读者的借阅记录进行排序
 {
     User* p = u_root;
     while (p && p->account != account) {
         p = p->next;
     }
-    Record* q = p->record;
+    if (p == NULL || p->record == NULL) return;
+
     int n = 0;
+    Record* q = p->record;
     while (q) {
         q = q->next;
-        n++;
+        ++n;
     }
     p->record = sort(p->record, n);
 }
+
 
 void Writer_Search(Book* b_root) {
     char name[100];
@@ -266,7 +270,7 @@ void Book_Search(Book* b_root) {
 void Elastic_Search(Book* b_root) //模糊查询
 {
     int flag;
-    printf("查询书籍请按1，查询作者请按2:");
+    printf("查询作者请按1，查询书籍请按2:");
     scanf("%d", &flag);
     switch (flag) {
     case 1:
@@ -362,11 +366,12 @@ int main() {
     Book* p, * q;
     p = q = (Book*)malloc(sizeof(Book));
     int n = 0;
+    int m = 100;
     while (!feof(fp)) {
         q = (Book*)malloc(sizeof(Book));
         fscanf(fp, "%s %s %lld %lld", q->name, q->writer, &q->Isbn, &q->p_date);
         q->type = 0;
-        q->f_letter = 'a';
+        q->f_letter = m--;
         q->flag = 0;
         q->next = NULL;
         if (broot == NULL) {
@@ -389,11 +394,12 @@ int main() {
     u->record = NULL;
     u->next = NULL;
     uroot = u;
-    int a = Borrow("flix", 123456, "杀死一只知更鸟", uroot, broot, 20240419);
-    int b = Borrow("flix", 123456, "1984", uroot, broot, 20240419);
-    int c = Borrow("flix", 123456, "傲慢与偏见", uroot, broot, 20240419);
-    int d = Borrow("flix", 123456, "了不起的盖茨比", uroot, broot, 20240419);
+    Borrow("flix", 123456, "杀死一只知更鸟", uroot, broot, 20240419);
+    Borrow("flix", 123456, "1984", uroot, broot, 20240419);
+    Borrow("flix", 123456, "傲慢与偏见", uroot, broot, 20240419);
+    Borrow("flix", 123456, "了不起的盖茨比", uroot, broot, 20240419);
+    Sort_Record("flix", 123456, uroot);
     Print_Record("flix", 123456, uroot);
-    printf("%d %d %d %d\n", a, b, c, d);
+    Elastic_Search(broot);
     return 0;
 }
