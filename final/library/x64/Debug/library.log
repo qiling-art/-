@@ -1,2 +1,19 @@
 ﻿  main.c
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(34,17): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(34,17): warning C4024: “AddBook”: 形参和实参 1 的类型不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(45,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(45,20): warning C4024: “ModifyBook”: 形参和实参 1 的类型不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(52,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(52,20): warning C4024: “DeleteBook”: 形参和实参 1 的类型不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(70,17): warning C4047: “函数”:“User *”与“User **”的间接级别不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(70,17): warning C4024: “AddUser”: 形参和实参 1 的类型不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(87,20): warning C4047: “函数”:“User *”与“User **”的间接级别不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(87,20): warning C4024: “DeleteUser”: 形参和实参 1 的类型不同
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(91,17): warning C4098: “BaseInforMain”:“void”函数返回值
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(38,34): warning C4101: “new_book_name”: 未引用的局部变量
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(59,13): warning C4101: “num_books”: 未引用的局部变量
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(38,54): warning C4101: “new_book_writer”: 未引用的局部变量
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(39,14): warning C4101: “new_f_letter”: 未引用的局部变量
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(129,17): warning C4098: “BookTypeMain”:“void”函数返回值
+C:\Users\33824\OneDrive\桌面\library-system\final\library\main.c(166,17): warning C4098: “UserTypeMain”:“void”函数返回值
   library.vcxproj -> C:\Users\33824\OneDrive\桌面\library-system\final\library\x64\Debug\library.exe

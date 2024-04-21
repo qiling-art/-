@@ -429,3 +429,160 @@ void File_Cope(char* fileRead, char* fileWrite)//文件备份函数
     }
 
 }
+
+
+
+
+void AdjustBookType(Book* head, char name[], int new_type)//设置和调整图书所属分类
+{
+    Book* current = head;// 定义一个指针current，初始化为链表头节点
+    while (current != NULL)// 遍历链表
+    {
+        if (strcmp(current->name, name) == 0)// 如果找到名称匹配的图书
+        {
+            current->type = new_type;// 将图书的分类调整为新的分类
+            printf("%s的类型已调整为%d", name, new_type);
+            return;// 退出函数
+        }
+        current = current->next; // 移动到下一个节点
+    }
+    printf("不存在图书%s", name);
+
+}
+void AdjustBookBTime(int old_type, int new_time)//设置和调整每类图书的借阅时间
+{
+    if (old_type >= 0 && old_type < 6)
+    {
+        BookType[old_type] = new_time; // 调整对应类型的图书借阅时间
+        printf("%d的借阅时长已调整为%d天", old_type, new_time);
+        return; // 退出函数
+    }
+    else {
+        printf("不存在此类型图书\n");
+    }
+}
+void AdjustUserType(User* head, char name[], int new_type)//设置和调整读者所属分类
+{
+    User* current = head;// 定义一个指针current，初始化为链表头节点
+    while (current != NULL)// 遍历链表
+    {
+        if (strcmp(current->name, name) == 0) {
+            current->type = new_type;// 将读者的分类调整为新的分类
+            printf("%s的类型已调整为%d", name, new_type);
+            return; // 退出函数
+        }
+        current = current->next;// 移动到下一个节点
+    }
+    printf("不存在读者%s", name);
+
+}
+void AdjustUserBTime(int old_type, int new_time)//设置和调整每类读者的借阅时间
+{
+    if (old_type >= 0 && old_type < 3) {
+        BookType[old_type] = new_time;// 调整对应类型的读者借阅时间
+        printf("%d的借阅时长已调整为%d天", old_type, new_time);
+        return;// 退出函数
+    }
+    else {
+        printf("不存在此类型读者\n");
+    }
+
+}
+void AddBook(Book* head, char name[], char writer[], char f_letter, int type, long long Isbn, long long p_date)//增加图书信息
+{
+    Book* newBook = (Book*)malloc(sizeof(Book));// 动态分配一个新的Book节点
+    strcpy(newBook->name, name);// 复制name字段
+    strcpy(newBook->writer, writer);// 复制writer字段
+    newBook->f_letter = f_letter;// 设置其他字段
+    newBook->type = type;
+    newBook->Isbn = Isbn;
+    newBook->p_date = p_date;
+    newBook->next = head;// 将新节点插入到链表头部
+    head = newBook;
+}
+void DeleteBook(Book* head, char name[])//删除图书信息
+{
+    Book* current = head;
+    Book* prev = NULL;
+    while (current != NULL && strcmp(current->name, name) != 0)// 遍历链表
+    {
+        prev = current;
+        current = current->next;
+
+    }
+    if (current == NULL)// 如果未找到图书
+    {
+        printf("查无此书\n");
+        return;
+    }
+    if (prev == NULL)// 如果要删除的节点是头节点
+    {
+        head = current->next;
+    }
+    else // 否则，将前一个节点的next指向当前节点的下一个节点
+    {
+        prev->next = current->next;
+    }
+}
+void AddUser(User* head, char name[], int type, char f_letter, long long password, long long account)//增加读者信息
+{
+    User* newUser = (User*)malloc(sizeof(User));// 动态分配一个新的User节点
+    strcpy(newUser->name, name);// 复制name字段
+    newUser->type = type;// 设置其他字段
+    newUser->f_letter = f_letter;
+    newUser->password = password;
+    newUser->account = account;
+    newUser->num = 0;
+    newUser->next = head;// 将新节点插入到链表头部
+    head = newUser;
+}
+void DeleteUser(User* head, char name[])//删除读者信息
+{
+    User* current = head; // 当前遍历的用户指针
+    User* prev = NULL;  // 前一个用户指针
+    while (current != NULL && strcmp(current->name, name) != 0) // 遍历链表
+    {
+        prev = current;// 更新前一个用户指针
+        current = current->next;// 移动到下一个用户
+    }
+    if (current == NULL) // 如果当前用户为无
+    {
+        printf("查无此人\n");
+        return;
+    }
+    if (prev == NULL) // 如果要删除的是头节点
+    {
+        head = current->next; // 更新头节点为下一个用户
+    }
+    else {
+        prev->next = current->next; // 否则将指向当前用户的下一个用户
+    }
+}
+void ModifyBook(Book* head, char name[], int new_type)//修改图书信息
+{
+    Book* current = head; // 当前遍历的图书指针
+    Book* prev = NULL;// 前一本图书指针
+    while (current != NULL) // 遍历链表
+    {
+        if (strcmp(current->name, name) == 0) {
+            current->type = new_type;
+            return;
+        }
+        prev = current;
+        current = current->next;// 移动到下一个节点
+    }
+}
+void ModifyUser(User* head, long long account, int new_type)//修改读者信息
+{
+    User* current = head;// 当前遍历的用户指针
+    User* prev = NULL; // 前一个用户指针
+    while (current != NULL)// 遍历链表
+    {
+        if (current->account == account) {
+            current->type = new_type;
+            return;
+        }
+        prev = current;
+        current = current->next;// 移动到下一个节点
+    }
+}
