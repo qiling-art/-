@@ -1,0 +1,41 @@
+//void lmain()//登录功能函数
+//{
+//	void land();
+//	void xinjian();
+//	char choose;
+//	lmenu();
+//	scanf(" %c", &choose);
+//	switch (choose)//功能函数
+//	{
+//	case'1':
+//		land();
+//		break;
+//	case'2':
+//		xinjian();
+//		break;
+//	case'3':
+//		xgmm();
+//		break;
+//	case'4':
+//		system("cls");
+//		getch();
+//		exit(0);
+//		system("cls");
+//		break;
+//	}
+//}
+//
+void lmenu()//显示登录菜单
+//{
+//
+//
+//	printf("\n\n\t    欢迎使用会员登录系统\n\n");
+//	printf("**********************************************");
+//	printf("\n\n\t\t1.登录系统\n\n");
+//	printf("\n\n\t\t2.创建账号\n\n");
+//	printf("\n\n\t\t3.修改密码\n\n");
+//	printf("\n\n\t\t4.退出系统\n\n");
+//	printf("\n\n\t    请按键选择，回车确定\n");
+//	printf("**********************************************");
+//	return;
+//}

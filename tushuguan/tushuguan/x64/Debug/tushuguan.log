@@ -1,0 +1,19 @@
+﻿  lib2.c
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(216,19): warning C4101: “k”: 未引用的局部变量
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(216,16): warning C4101: “j”: 未引用的局部变量
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(216,22): warning C4101: “n”: 未引用的局部变量
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(324,9): warning C4013: “DeleteBook”未定义；假设外部返回 int
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(342,9): warning C4013: “AddUser”未定义；假设外部返回 int
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(352,9): warning C4013: “ModifyUser”未定义；假设外部返回 int
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(359,9): warning C4013: “DeleteUser”未定义；假设外部返回 int
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(363,17): warning C4098: “BaseInforMain”:“void”函数返回值
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(310,34): warning C4101: “new_book_name”: 未引用的局部变量
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(331,13): warning C4101: “num_books”: 未引用的局部变量
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(310,54): warning C4101: “new_book_writer”: 未引用的局部变量
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(311,14): warning C4101: “new_f_letter”: 未引用的局部变量
+C:\Users\95945\Desktop\vs实验\tushuguan\lib2.c(99,1): warning C4715: “Admatch”: 不是所有的控件路径都返回值
+lib2.obj : error LNK2019: 无法解析的外部符号 DeleteBook，函数 BaseInforMain 中引用了该符号
+lib2.obj : error LNK2019: 无法解析的外部符号 AddUser，函数 BaseInforMain 中引用了该符号
+lib2.obj : error LNK2019: 无法解析的外部符号 ModifyUser，函数 BaseInforMain 中引用了该符号
+lib2.obj : error LNK2019: 无法解析的外部符号 DeleteUser，函数 BaseInforMain 中引用了该符号
+C:\Users\95945\Desktop\vs实验\tushuguan\x64\Debug\tushuguan.exe : fatal error LNK1120: 4 个无法解析的外部命令
