@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -17,7 +16,7 @@ typedef struct Book {
     struct Book* next;
 }Book;
 
-struct Book* jcbookname()//书名简单查询
+Book* jcbookname()//书名简单查询
 {
 
     struct Book* head;
@@ -108,7 +107,7 @@ struct Book* jcbookname()//书名简单查询
     fclose(fp);
     return head;
 };
-struct Book* jcwriter()//作者简单查询
+Book* jcwriter(Book* head)//作者简单查询
 {
     struct Book* head;
     head = (struct Book*)malloc(sizeof(struct Book));
@@ -198,7 +197,7 @@ struct Book* jcwriter()//作者简单查询
     fclose(fp);
     return head;
 };
-struct Book* jctype()//类别简单查询
+Book* jctype()//类别简单查询
 {
     struct Book* head;
     head = (struct Book*)malloc(sizeof(struct Book));
@@ -1358,6 +1357,10 @@ struct Book* combsearch()//组合查询
     }
 
     return head;
+}
+
+int main() {
+
 }
 
 
