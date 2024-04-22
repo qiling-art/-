@@ -1,34 +1,19 @@
 ﻿  main.c
-C:\Users\95945\Desktop\library-system\final\library\main.c(36,17): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(36,17): warning C4024: “AddBook”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(47,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(47,20): warning C4024: “ModifyBook”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(54,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(54,20): warning C4024: “DeleteBook”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(72,17): warning C4047: “函数”:“User *”与“User **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(72,17): warning C4024: “AddUser”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(89,20): warning C4047: “函数”:“User *”与“User **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(89,20): warning C4024: “DeleteUser”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(93,17): warning C4098: “BaseInforMain”:“void”函数返回值
-C:\Users\95945\Desktop\library-system\final\library\main.c(40,34): warning C4101: “new_book_name”: 未引用的局部变量
-C:\Users\95945\Desktop\library-system\final\library\main.c(61,13): warning C4101: “num_books”: 未引用的局部变量
-C:\Users\95945\Desktop\library-system\final\library\main.c(40,54): warning C4101: “new_book_writer”: 未引用的局部变量
-C:\Users\95945\Desktop\library-system\final\library\main.c(41,14): warning C4101: “new_f_letter”: 未引用的局部变量
-C:\Users\95945\Desktop\library-system\final\library\main.c(131,17): warning C4098: “BookTypeMain”:“void”函数返回值
-C:\Users\95945\Desktop\library-system\final\library\main.c(168,17): warning C4098: “UserTypeMain”:“void”函数返回值
-C:\Users\95945\Desktop\library-system\final\library\main.c(192,6): error C2084: 函数“void BaseInforMain()”已有主体
-  C:\Users\95945\Desktop\library-system\final\library\main.c(5,6):
-  参见“BaseInforMain”的前一个定义
-  
-C:\Users\95945\Desktop\library-system\final\library\main.c(223,17): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(223,17): warning C4024: “AddBook”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(234,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(234,20): warning C4024: “ModifyBook”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(241,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(241,20): warning C4024: “DeleteBook”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(259,17): warning C4047: “函数”:“User *”与“User **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(259,17): warning C4024: “AddUser”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(276,20): warning C4047: “函数”:“User *”与“User **”的间接级别不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(276,20): warning C4024: “DeleteUser”: 形参和实参 1 的类型不同
-C:\Users\95945\Desktop\library-system\final\library\main.c(280,17): warning C4098: “BaseInforMain”:“void”函数返回值
-C:\Users\95945\Desktop\library-system\final\library\main.c(299,9): warning C4013: “_getch”未定义；假设外部返回 int
+C:\Users\95945\Desktop\library-system\final\library\main.c(36,17): warning C4098: “BookTypeMain”:“void”函数返回值
+C:\Users\95945\Desktop\library-system\final\library\main.c(73,17): warning C4098: “UserTypeMain”:“void”函数返回值
+C:\Users\95945\Desktop\library-system\final\library\main.c(113,17): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(113,17): warning C4024: “AddBook”: 形参和实参 1 的类型不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(124,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(124,20): warning C4024: “ModifyBook”: 形参和实参 1 的类型不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(131,20): warning C4047: “函数”:“Book *”与“Book **”的间接级别不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(131,20): warning C4024: “DeleteBook”: 形参和实参 1 的类型不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(149,17): warning C4047: “函数”:“User *”与“User **”的间接级别不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(149,17): warning C4024: “AddUser”: 形参和实参 1 的类型不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(166,20): warning C4047: “函数”:“User *”与“User **”的间接级别不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(166,20): warning C4024: “DeleteUser”: 形参和实参 1 的类型不同
+C:\Users\95945\Desktop\library-system\final\library\main.c(170,17): warning C4098: “BaseInforMain”:“void”函数返回值
+C:\Users\95945\Desktop\library-system\final\library\main.c(117,34): warning C4101: “new_book_name”: 未引用的局部变量
+C:\Users\95945\Desktop\library-system\final\library\main.c(138,13): warning C4101: “num_books”: 未引用的局部变量
+C:\Users\95945\Desktop\library-system\final\library\main.c(117,54): warning C4101: “new_book_writer”: 未引用的局部变量
+C:\Users\95945\Desktop\library-system\final\library\main.c(118,14): warning C4101: “new_f_letter”: 未引用的局部变量
+  library.vcxproj -> C:\Users\95945\Desktop\library-system\final\library\x64\Debug\library.exe
