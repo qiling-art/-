@@ -1,5 +1,84 @@
 #include"allfunctions.h"
 
+
+
+
+void BookTypeMain() //图书分类管理
+{
+    int choice;
+    printf("图书馆图书分类系统：\n");
+    printf("1.设置和调整图书所属分类\n");
+    printf("2.设置和调整每类图书的借阅时间\n");
+    printf("0.退出图书分类系统");
+    printf("请选择操作：");
+    scanf("%d", &choice);
+    switch (choice) {
+    case 1:
+        char book_name_adjust[100];
+        int new_book_type_adjust;
+        printf("请输入要调整类型的图书名称：");
+        scanf("%s", book_name_adjust);
+        printf("请输入新的图书类型：");
+        scanf("%d", &new_book_type_adjust);
+        AdjustBookType(broot, book_name_adjust, new_book_type_adjust);
+        printf("图书类型调整成功！\n");
+        break;
+    case 2:
+        int old_book_type_adjust, new_book_time_adjust;
+        printf("请输入要调整借阅时间的图书当前类型：");
+        scanf("%d", &old_book_type_adjust);
+        printf("请输入新的图书借阅时间：");
+        scanf("%d", &new_book_time_adjust);
+        AdjustBookBTime(old_book_type_adjust, new_book_time_adjust);
+        printf("图书借阅时间调整成功！\n");
+        break;
+    case 0:
+        return 0;
+    default:
+        printf("请重新选择。\n");
+
+    }
+}
+
+void UserTypeMain() //读者分类管理
+{
+    int choice;
+    printf("图书馆读者分类系统：\n");
+    printf("1.设置和调整读者所属分类\n");
+    printf("2.设置和调整每类读者的借阅时间\n");
+    printf("0.退出读者分类系统");
+    printf("请选择操作：");
+    scanf("%d", &choice);
+    switch (choice) {
+    case 1:
+        char user_name_adjust[100];
+        int new_user_type_adjust;
+        printf("请输入要调整类型的读者姓名：");
+        scanf("%s", user_name_adjust);
+        printf("请输入新的读者类型：");
+        scanf("%d", &new_user_type_adjust);
+        AdjustUserType(uroot, user_name_adjust, new_user_type_adjust);
+        printf("读者类型调整成功！\n");
+        break;
+    case 2:
+        int old_user_type_adjust, new_user_time_adjust;
+        printf("请输入要调整借阅时间的读者当前类型：");
+        scanf("%d", &old_user_type_adjust);
+        printf("请输入新的读者借阅时间：");
+        scanf("%d", &new_user_time_adjust);
+        AdjustUserBTime(old_user_type_adjust, new_user_time_adjust);
+        printf("读者借阅时间调整成功！\n");
+        break;
+    case 0:
+        return 0;
+    default:
+        printf("请重新选择。\n");
+
+    }
+
+}
+
+
 void BaseInforMain()//基本信息管理
 {
     int choice;
@@ -96,81 +175,8 @@ void BaseInforMain()//基本信息管理
 
 }
 
-void BookTypeMain() //图书分类管理
+
+int main()
 {
-    int choice;
-    printf("图书馆图书分类系统：\n");
-    printf("1.设置和调整图书所属分类\n");
-    printf("2.设置和调整每类图书的借阅时间\n");
-    printf("0.退出图书分类系统");
-    printf("请选择操作：");
-    scanf("%d", &choice);
-    switch (choice) {
-    case 1:
-        char book_name_adjust[100];
-        int new_book_type_adjust;
-        printf("请输入要调整类型的图书名称：");
-        scanf("%s", book_name_adjust);
-        printf("请输入新的图书类型：");
-        scanf("%d", &new_book_type_adjust);
-        AdjustBookType(broot, book_name_adjust, new_book_type_adjust);
-        printf("图书类型调整成功！\n");
-        break;
-    case 2:
-        int old_book_type_adjust, new_book_time_adjust;
-        printf("请输入要调整借阅时间的图书当前类型：");
-        scanf("%d", &old_book_type_adjust);
-        printf("请输入新的图书借阅时间：");
-        scanf("%d", &new_book_time_adjust);
-        AdjustBookBTime(old_book_type_adjust, new_book_time_adjust);
-        printf("图书借阅时间调整成功！\n");
-        break;
-    case 0:
-        return 0;
-    default:
-        printf("请重新选择。\n");
-
-    }
-}
-
-void UserTypeMain() //读者分类管理
-{
-    int choice;
-    printf("图书馆读者分类系统：\n");
-    printf("1.设置和调整读者所属分类\n");
-    printf("2.设置和调整每类读者的借阅时间\n");
-    printf("0.退出读者分类系统");
-    printf("请选择操作：");
-    scanf("%d", &choice);
-    switch (choice) {
-    case 1:
-        char user_name_adjust[100];
-        int new_user_type_adjust;
-        printf("请输入要调整类型的读者姓名：");
-        scanf("%s", user_name_adjust);
-        printf("请输入新的读者类型：");
-        scanf("%d", &new_user_type_adjust);
-        AdjustUserType(uroot, user_name_adjust, new_user_type_adjust);
-        printf("读者类型调整成功！\n");
-        break;
-    case 2:
-        int old_user_type_adjust, new_user_time_adjust;
-        printf("请输入要调整借阅时间的读者当前类型：");
-        scanf("%d", &old_user_type_adjust);
-        printf("请输入新的读者借阅时间：");
-        scanf("%d", &new_user_time_adjust);
-        AdjustUserBTime(old_user_type_adjust, new_user_time_adjust);
-        printf("读者借阅时间调整成功！\n");
-        break;
-    case 0:
-        return 0;
-    default:
-        printf("请重新选择。\n");
-
-    }
-
-}
-
-int main() {
-
+   
 }
