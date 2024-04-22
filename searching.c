@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -15,10 +16,92 @@ typedef struct Book {
     int flag;//判断这本书有没有被借出
     struct Book* next;
 }Book;
-
-Book* jcbookname()//书名简单查询
+void printa(int i, Book* arr)
 {
+    printf("书名：%s ", arr->name);
+    printf("\t作者：%s ", arr->writer);
+    if (arr->type == 0)
+    {
+        printf("\t分类：科普类 ");
+    }
+    else if (arr->type == 1)
+    {
+        printf("\t分类：教育类 ");
+    }
+    else if (arr->type == 2)
+    {
+        printf("\t分类：小说类 ");
+    }
+    else if (arr->type == 3)
+    {
+        printf("\t分类：传记类 ");
+    }
+    else if (arr->type == 4)
+    {
+        printf("\t分类：历史类 ");
+    }
+    else if (arr->type == 5)
+    {
+        printf("\t分类：诗歌类 ");
+    }
+    printf("\tISBN码为：%lld ", arr->Isbn);
+    printf("\t出版时间：%lld ", arr->p_date);
+    if (arr->flag == 0)
+    {
+        printf("\t状态：在库\n");
+    }
+    else if (arr->flag == 1)
+    {
+        printf("\t状态：已借出\n");
 
+    }
+}
+void printp(Book* pre)
+{
+    printf("书名：%s ", pre->name);
+    printf("\t作者：%s ", pre->writer);
+    if (pre->type == 0)
+    {
+        printf("\t分类：科普类 ");
+    }
+    else if (pre->type == 1)
+    {
+        printf("\t分类：教育类 ");
+    }
+    else if (pre->type == 2)
+    {
+        printf("\t分类：小说类 ");
+    }
+    else if (pre->type == 3)
+    {
+        printf("\t分类：传记类 ");
+    }
+    else if (pre->type == 4)
+    {
+        printf("\t分类：历史类 ");
+    }
+    else if (pre->type == 5)
+    {
+        printf("\t分类：诗歌类 ");
+    }
+    printf("\tISBN码为：%lld ", pre->Isbn);
+    printf("\t出版时间：%lld ", pre->p_date);
+    if (pre->flag == 0)
+    {
+        printf("\t状态：在库\n");
+    }
+    else if (pre->flag == 1)
+    {
+        printf("\t状态：已借出\n");
+
+    }
+}
+struct Book* jcbookname()//书名简单查询
+{
+    Book* arr[1000];
+    Book* temp;
+    int i, j;
+    int shuzujishu = 0;
     struct Book* head;
     head = (struct Book*)malloc(sizeof(struct Book));
     head->next = NULL;
@@ -52,49 +135,18 @@ Book* jcbookname()//书名简单查询
         p = book;
     }
     struct Book* pre;
+    struct Book* pre1;
     pre = head;
     int b = 0;
     while (pre != NULL)
     {
+
         if (strcmp(pre->name, bookname) == 0)
         {
-            printf("书名：%s ", pre->name);
-            printf("\t作者：%s ", pre->writer);
-            if (pre->type == 0)
-            {
-                printf("\t分类：科普类 ");
-            }
-            else if (pre->type == 1)
-            {
-                printf("\t分类：教育类 ");
-            }
-            else if (pre->type == 2)
-            {
-                printf("\t分类：小说类 ");
-            }
-            else if (pre->type == 3)
-            {
-                printf("\t分类：传记类 ");
-            }
-            else if (pre->type == 4)
-            {
-                printf("\t分类：历史类 ");
-            }
-            else if (pre->type == 5)
-            {
-                printf("\t分类：诗歌类 ");
-            }
-            printf("\tISBN码为：%lld ", pre->Isbn);
-            printf("\t出版时间：%lld ", pre->p_date);
-            if (pre->flag == 0)
-            {
-                printf("\t状态：在库\n");
-            }
-            else if (pre->flag == 1)
-            {
-                printf("\t状态：已借出\n");
+            printp(pre);
+            arr[shuzujishu] = pre;
+            shuzujishu++;
 
-            }
             b++;
         }
         pre = pre->next;
@@ -103,12 +155,179 @@ Book* jcbookname()//书名简单查询
     if (b == 0)
     {
         printf("\t查无此书，请重新输入");
+        return head;
     }
+    //下面为基于查询的排序模块
+    int m1 = 0, m2 = 0, m3 = 0;
+    do
+    {
+        printf("您是否需要进行排序？若是，请输入1，若不是，请输入0。\n");
+        scanf("%d", &m1);
+        if (m1 == 1)
+        {
+            printf("\033[2A");
+            printf("\033[25D");
+            printf("\033[J");
+            do {
+
+
+                printf("请选择排序方式：输入1以进行按类别排序，输入2以进行按出版日期排序。\n");
+                scanf("%d", &m2);
+
+                if (m2 == 1)
+                {
+
+
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do {
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为 科普类，教育类，小说类，传记类，历史类，诗歌类)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->type > arr[j + 1]->type)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->type < arr[j + 1]->type)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else if (m2 == 2)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do
+                    {
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为按首字母a到z进行排序)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->p_date > arr[j + 1]->p_date)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->p_date < arr[j + 1]->p_date)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else
+                {
+                    printf("输入错误，请重新输入。");
+                    system("pause");
+                    printf("\033[3A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                }
+            } while (!(m2 == 1 || m2 == 2));
+        }
+        else if (m1 == 0)
+        {
+
+
+        }
+        else
+        {
+            printf("输入错误，请重新输入。");
+            system("pause");
+            printf("\033[3A");
+            printf("\033[25D");
+            printf("\033[J");
+        }
+    } while (!(m1 == 1 || m1 == 0));
     fclose(fp);
     return head;
 };
-Book* jcwriter(Book* head)//作者简单查询
+struct Book* jcwriter()//作者简单查询
 {
+    Book* arr[1000];
+    Book* temp;
+    int i, j;
+    int shuzujishu = 0;
     struct Book* head;
     head = (struct Book*)malloc(sizeof(struct Book));
     head->next = NULL;
@@ -148,43 +367,10 @@ Book* jcwriter(Book* head)//作者简单查询
     {
         if (strcmp(pre->writer, writername) == 0)
         {
-            printf("书名：%s ", pre->name);
-            printf("\t作者：%s ", pre->writer);
-            if (pre->type == 0)
-            {
-                printf("\t分类：科普类 ");
-            }
-            else if (pre->type == 1)
-            {
-                printf("\t分类：教育类 ");
-            }
-            else if (pre->type == 2)
-            {
-                printf("\t分类：小说类 ");
-            }
-            else if (pre->type == 3)
-            {
-                printf("\t分类：传记类 ");
-            }
-            else if (pre->type == 4)
-            {
-                printf("\t分类：历史类 ");
-            }
-            else if (pre->type == 5)
-            {
-                printf("\t分类：诗歌类 ");
-            }
-            printf("\tISBN码为：%lld ", pre->Isbn);
-            printf("\t出版时间：%lld ", pre->p_date);
-            if (pre->flag == 0)
-            {
-                printf("\t状态：在库\n");
-            }
-            else if (pre->flag == 1)
-            {
-                printf("\t状态：已借出\n");
+            printp(pre);
+            arr[shuzujishu] = pre;
+            shuzujishu++;
 
-            }
             b++;
         }
         pre = pre->next;
@@ -193,12 +379,238 @@ Book* jcwriter(Book* head)//作者简单查询
     if (b == 0)
     {
         printf("查无该作者，请重新输入");
+        return head;
     }
+    //下面为基于查询的排序模块
+    int m1 = 0, m2 = 0, m3 = 0;
+    do
+    {
+        printf("您是否需要进行排序？若是，请输入1，若不是，请输入0。\n");
+        scanf("%d", &m1);
+        if (m1 == 1)
+        {
+            printf("\033[2A");
+            printf("\033[25D");
+            printf("\033[J");
+            do {
+
+
+                printf("请选择排序方式：输入1以进行按类别排序，输入2以进行按首字母排序，输入3以进行按出版日期排序。\n");
+                scanf("%d", &m2);
+
+                if (m2 == 1)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do {
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为 科普类，教育类，小说类，传记类，历史类，诗歌类)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->type > arr[j + 1]->type)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->type < arr[j + 1]->type)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else if (m2 == 2)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do
+                    {
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为按首字母a到z进行排序)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->f_letter > arr[j + 1]->f_letter)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->f_letter < arr[j + 1]->f_letter)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else if (m2 == 3)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do
+                    {
+
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为按出版日期进行排序)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->p_date > arr[j + 1]->p_date)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->p_date < arr[j + 1]->p_date)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else
+                {
+                    printf("输入错误，请重新输入。");
+                    system("pause");
+                    printf("\033[3A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                }
+            } while (!(m2 == 1 || m2 == 2 || m2 == 3));
+        }
+        else if (m1 == 0)
+        {
+
+
+        }
+        else
+        {
+            printf("输入错误，请重新输入。");
+            system("pause");
+            printf("\033[3A");
+            printf("\033[25D");
+            printf("\033[J");
+        }
+    } while (!(m1 == 1 || m1 == 0));
     fclose(fp);
     return head;
 };
-Book* jctype()//类别简单查询
+struct Book* jctype()//类别简单查询
 {
+    Book* arr[1000];
+    Book* temp;
+    int i, j;
+    int shuzujishu = 0;
     struct Book* head;
     head = (struct Book*)malloc(sizeof(struct Book));
     head->next = NULL;
@@ -269,53 +681,182 @@ Book* jctype()//类别简单查询
     {
         if (pre->type == a)
         {
-            printf("书名：%s ", pre->name);
-            printf("\t作者：%s ", pre->writer);
-            if (pre->type == 0)
-            {
-                printf("\t分类：科普类 ");
-            }
-            else if (pre->type == 1)
-            {
-                printf("\t分类：教育类 ");
-            }
-            else if (pre->type == 2)
-            {
-                printf("\t分类：小说类 ");
-            }
-            else if (pre->type == 3)
-            {
-                printf("\t分类：传记类 ");
-            }
-            else if (pre->type == 4)
-            {
-                printf("\t分类：历史类 ");
-            }
-            else if (pre->type == 5)
-            {
-                printf("\t分类：诗歌类 ");
-            }
-            printf("\tISBN码为：%lld ", pre->Isbn);
-            printf("\t出版时间：%lld ", pre->p_date);
-            if (pre->flag == 0)
-            {
-                printf("\t状态：在库\n");
-            }
-            else if (pre->flag == 1)
-            {
-                printf("\t状态：已借出\n");
-
-            }
+            printp(pre);
+            arr[shuzujishu] = pre;
+            shuzujishu++;
             b++;
 
 
         }
+
         pre = pre->next;
 
     }if (b == 0)
     {
         printf("查无此书，请重新输入");
+        return head;
     }
+    //排序模块
+    int m1 = 0, m2 = 0, m3 = 0;
+    do
+    {
+        printf("您是否需要进行排序？若是，请输入1，若不是，请输入0。\n");
+        scanf("%d", &m1);
+        if (m1 == 1)
+        {
+            printf("\033[2A");
+            printf("\033[25D");
+            printf("\033[J");
+            do {
+
+
+                printf("请选择排序方式：输入1以进行按首字母排序，输入2以进行按出版日期排序。\n");
+                scanf("%d", &m2);
+                if (m2 == 1)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do
+                    {
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为按首字母a到z进行排序)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->f_letter > arr[j + 1]->f_letter)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->f_letter < arr[j + 1]->f_letter)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else if (m2 == 2)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do
+                    {
+
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为按出版日期进行排序)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->p_date > arr[j + 1]->p_date)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->p_date < arr[j + 1]->p_date)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else
+                {
+                    printf("输入错误，请重新输入。");
+                    system("pause");
+                    printf("\033[3A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                }
+            } while (!(m2 == 1 || m2 == 2));
+        }
+        else if (m1 == 0)
+        {
+
+
+        }
+        else
+        {
+            printf("输入错误，请重新输入。");
+            system("pause");
+            printf("\033[3A");
+            printf("\033[25D");
+            printf("\033[J");
+        }
+    } while (!(m1 == 1 || m1 == 0));
     fclose(fp);
     return head;
 }
@@ -362,43 +903,7 @@ struct Book* jcisbn()//isbn简单查询
 
         if (pre->Isbn == isbn)
         {
-            printf("书名：%s ", pre->name);
-            printf("\t作者：%s ", pre->writer);
-            if (pre->type == 0)
-            {
-                printf("\t分类：科普类 ");
-            }
-            else if (pre->type == 1)
-            {
-                printf("\t分类：教育类 ");
-            }
-            else if (pre->type == 2)
-            {
-                printf("\t分类：小说类 ");
-            }
-            else if (pre->type == 3)
-            {
-                printf("\t分类：传记类 ");
-            }
-            else if (pre->type == 4)
-            {
-                printf("\t分类：历史类 ");
-            }
-            else if (pre->type == 5)
-            {
-                printf("\t分类：诗歌类 ");
-            }
-            printf("\tISBN码为：%lld ", pre->Isbn);
-            printf("\t出版时间：%lld ", pre->p_date);
-            if (pre->flag == 0)
-            {
-                printf("\t状态：在库\n");
-            }
-            else if (pre->flag == 1)
-            {
-                printf("\t状态：已借出\n");
-
-            }
+            printp(pre);
             b++;
         }
         pre = pre->next;
@@ -407,13 +912,17 @@ struct Book* jcisbn()//isbn简单查询
     if (b == 0)
     {
         printf("查无此书，请重新输入");
+        return head;
     }
     fclose(fp);
     return head;
 };
 struct Book* jcdate()//出版日期简单查询
 {
-
+    Book* arr[1000];
+    Book* temp;
+    int i, j;
+    int shuzujishu = 0;
     struct Book* head;
     head = (struct Book*)malloc(sizeof(struct Book));
     head->next = NULL;
@@ -454,43 +963,9 @@ struct Book* jcdate()//出版日期简单查询
 
         if (pre->p_date == date)
         {
-            printf("书名：%s ", pre->name);
-            printf("\t作者：%s ", pre->writer);
-            if (pre->type == 0)
-            {
-                printf("\t分类：科普类 ");
-            }
-            else if (pre->type == 1)
-            {
-                printf("\t分类：教育类 ");
-            }
-            else if (pre->type == 2)
-            {
-                printf("\t分类：小说类 ");
-            }
-            else if (pre->type == 3)
-            {
-                printf("\t分类：传记类 ");
-            }
-            else if (pre->type == 4)
-            {
-                printf("\t分类：历史类 ");
-            }
-            else if (pre->type == 5)
-            {
-                printf("\t分类：诗歌类 ");
-            }
-            printf("\tISBN码为：%lld ", pre->Isbn);
-            printf("\t出版时间：%lld ", pre->p_date);
-            if (pre->flag == 0)
-            {
-                printf("\t状态：在库\n");
-            }
-            else if (pre->flag == 1)
-            {
-                printf("\t状态：已借出\n");
-
-            }
+            printp(pre);
+            arr[shuzujishu] = pre;
+            shuzujishu++;
             b++;
         }
         pre = pre->next;
@@ -499,12 +974,175 @@ struct Book* jcdate()//出版日期简单查询
     if (b == 0)
     {
         printf("查无此书，请重新输入");
+        return head;
     }
+    //查询模块
+    int m1 = 0, m2 = 0, m3 = 0;
+    do
+    {
+        printf("您是否需要进行排序？若是，请输入1，若不是，请输入0。\n");
+        scanf("%d", &m1);
+        if (m1 == 1)
+        {
+            printf("\033[2A");
+            printf("\033[25D");
+            printf("\033[J");
+            do {
+
+
+                printf("请选择排序方式：输入1以进行按类别排序，输入2以进行按首字母排序。\n");
+                scanf("%d", &m2);
+
+                if (m2 == 1)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do {
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为 科普类，教育类，小说类，传记类，历史类，诗歌类)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->type > arr[j + 1]->type)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->type < arr[j + 1]->type)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else if (m2 == 2)
+                {
+                    printf("\033[2A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                    do
+                    {
+
+                        printf("输入0以进行升序排序，输入1以进行降序排序\n");
+                        printf("(升序为按首字母a到z进行排序)\n");
+                        scanf("%d", &m3);
+                        system("cls");
+                        if (m3 == 0)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->f_letter > arr[j + 1]->f_letter)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else if (m3 == 1)
+                        {
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                for (j = 0; j < shuzujishu - i - 1; j++)
+                                {
+                                    if (arr[j]->f_letter < arr[j + 1]->f_letter)
+                                    {
+                                        temp = arr[j];
+                                        arr[j] = arr[j + 1];
+                                        arr[j + 1] = temp;
+                                    }
+                                }
+                            }
+                            for (i = 0; i < shuzujishu; i++)
+                            {
+                                printa(i, arr[i]);
+                            }
+                        }
+                        else
+                        {
+                            printf("输入错误，请重新输入。");
+                            system("pause");
+                            printf("\033[3A");
+                            printf("\033[25D");
+                            printf("\033[J");
+                        }
+                    } while (!(m3 == 0 || m3 == 1));
+                }
+                else
+                {
+                    printf("输入错误，请重新输入。");
+                    system("pause");
+                    printf("\033[3A");
+                    printf("\033[25D");
+                    printf("\033[J");
+                }
+            } while (!(m2 == 1 || m2 == 2));
+        }
+        else if (m1 == 0)
+        {
+        }
+        else
+        {
+            printf("输入错误，请重新输入。");
+            system("pause");
+            printf("\033[3A");
+            printf("\033[25D");
+            printf("\033[J");
+        }
+    } while (!(m1 == 1 || m1 == 0));
     fclose(fp);
     return head;
 };
 struct Book* combsearch()//组合查询
 {
+    Book* arr[1000];
+    Book* temp;
+    int i, j;
+    int shuzujishu = 0;
     struct Book* head;
     head = (struct Book*)malloc(sizeof(struct Book));
     head->next = NULL;
@@ -618,43 +1256,7 @@ struct Book* combsearch()//组合查询
         {
             if (strcmp(pre->writer, writer) == 0)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -667,43 +1269,7 @@ struct Book* combsearch()//组合查询
         {
             if (pre->type == a)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -716,43 +1282,7 @@ struct Book* combsearch()//组合查询
         {
             if (pre->f_letter == fletter)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -765,43 +1295,7 @@ struct Book* combsearch()//组合查询
         {
             if (pre->p_date == date)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -814,43 +1308,7 @@ struct Book* combsearch()//组合查询
         {
             if (strcmp(pre->writer, writer) == 0 && pre->type == a)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -864,43 +1322,7 @@ struct Book* combsearch()//组合查询
         {
             if (strcmp(pre->writer, writer) == 0 && pre->f_letter == fletter)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -913,43 +1335,7 @@ struct Book* combsearch()//组合查询
         {
             if (strcmp(pre->writer, writer) == 0 && pre->p_date == date)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -962,43 +1348,7 @@ struct Book* combsearch()//组合查询
         {
             if (pre->f_letter == fletter && pre->type == a)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
 
             }
             pre = pre->next;
@@ -1011,43 +1361,7 @@ struct Book* combsearch()//组合查询
         {
             if ((pre->p_date) == date && pre->type == a)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -1060,43 +1374,7 @@ struct Book* combsearch()//组合查询
         {
             if (pre->f_letter == fletter && pre->p_date == date)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -1109,43 +1387,7 @@ struct Book* combsearch()//组合查询
         {
             if (strcmp(pre->writer, writer) == 0 && pre->type == a && pre->f_letter == fletter)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -1158,43 +1400,7 @@ struct Book* combsearch()//组合查询
         {
             if (strcmp(pre->writer, writer) == 0 && pre->type == a && pre->p_date == date)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -1209,43 +1415,7 @@ struct Book* combsearch()//组合查询
 
             if ((strcmp(pre->writer, writer) == 0) && (pre->p_date == date) && (pre->f_letter == fletter))
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -1258,43 +1428,7 @@ struct Book* combsearch()//组合查询
         {
             if (pre->f_letter == fletter && pre->type == a && pre->p_date == date)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -1308,43 +1442,7 @@ struct Book* combsearch()//组合查询
         {
             if (strcmp(pre->writer, writer) == 0 && pre->type == a && pre->f_letter == fletter && pre->p_date == date)
             {
-                printf("书名：%s ", pre->name);
-                printf("\t作者：%s ", pre->writer);
-                if (pre->type == 0)
-                {
-                    printf("\t分类：科普类 ");
-                }
-                else if (pre->type == 1)
-                {
-                    printf("\t分类：教育类 ");
-                }
-                else if (pre->type == 2)
-                {
-                    printf("\t分类：小说类 ");
-                }
-                else if (pre->type == 3)
-                {
-                    printf("\t分类：传记类 ");
-                }
-                else if (pre->type == 4)
-                {
-                    printf("\t分类：历史类 ");
-                }
-                else if (pre->type == 5)
-                {
-                    printf("\t分类：诗歌类 ");
-                }
-                printf("\tISBN码为：%lld ", pre->Isbn);
-                printf("\t出版时间：%lld ", pre->p_date);
-                if (pre->flag == 0)
-                {
-                    printf("\t状态：在库\n");
-                }
-                else if (pre->flag == 1)
-                {
-                    printf("\t状态：已借出\n");
-
-                }
+                printp(pre);
                 b++;
             }
             pre = pre->next;
@@ -1354,13 +1452,8 @@ struct Book* combsearch()//组合查询
     if (b == 0)
     {
         printf("查无此书，请重新输入");
+        return head;
     }
 
     return head;
 }
-
-int main() {
-
-}
-
-
